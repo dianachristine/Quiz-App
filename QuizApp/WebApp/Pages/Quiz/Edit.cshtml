@@ -1,0 +1,50 @@
+@page
+@using Domain
+@model WebApp.Pages_Quiz.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Quiz</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Quiz.QuizId"/>
+            <div class="form-group">
+                <label asp-for="Quiz.Name" class="control-label"></label>
+                <input asp-for="Quiz.Name" class="form-control"/>
+                <span asp-validation-for="Quiz.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quiz.Description" class="control-label"></label>
+                <input asp-for="Quiz.Description" class="form-control"/>
+                <span asp-validation-for="Quiz.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quiz.Type" class="control-label"></label>
+                <select asp-for="Quiz.Type" class="form-control" asp-items="Html.GetEnumSelectList<EType>()"></select>
+                <span asp-validation-for="Quiz.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="display-5">
+    <a asp-page="/Question/Index" asp-route-id="@Model.Quiz.QuizId">To questions</a>
+</div>
+<br/>
+<div>
+    <a asp-page="/Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

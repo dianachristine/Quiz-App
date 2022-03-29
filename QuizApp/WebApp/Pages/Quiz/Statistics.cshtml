@@ -1,0 +1,84 @@
+﻿@page
+@model WebApp.Pages.Quiz.Statistics
+
+@{
+    ViewData["Title"] = "Statistics";
+}
+
+<h1>Statistics</h1>
+
+<div>
+    <h3>Quiz</h3>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quiz.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quiz.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quiz.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quiz.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quiz.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quiz.Type)
+        </dd>
+    </dl>
+</div>
+<hr/>
+<h4>Questions</h4>
+<div class="col-md-8 mx-auto">
+    @if ( Model.Quiz.Questions.Count > 0)
+    {
+        @for (var i = 0; i < Model.Quiz.Questions.Count; i++)
+        {
+            <table class="table">
+                <thead>
+                <th>
+                    @Model.Quiz.Questions.ToList()[i].QuestionItself
+                </th>
+                <th style="width: 20px">
+                    Statistics
+                </th>
+                </thead>
+                <tbody>
+                @for (var j = 0; j < Model.Quiz.Questions.ToList()[i].Choices.ToList().Count; j++)
+                {
+                    <tr>
+                        <td>
+                            @if (Model.Quiz.Questions.ToList()[i].Choices.ToList()[j].IsCorrectChoice is true)
+                            {
+                                <div class="text-success" style="font-weight: bold">@Model.Quiz.Questions.ToList()[i].Choices.ToList()[j].ChoiceItself</div>
+                            }
+                            else
+                            {
+                                @Model.Quiz.Questions.ToList()[i].Choices.ToList()[j].ChoiceItself
+                            }
+                        </td>
+                        <td>
+                            @Model.Quiz.Questions.ToList()[i].Choices.ToList()[j].NumberOfAnswers
+                        </td>
+                    </tr>
+                }
+                </tbody>
+
+            </table>
+            <br/>
+        }
+    }
+    @if (Model.Quiz.Questions.Count == 0)
+    {
+        <p>This quiz/poll does not have any questions!</p>
+    }
+    
+</div>
+<div>
+    <a asp-page="/Quiz/Edit" asp-route-id="@Model.Quiz.QuizId">Edit</a> |
+    <a asp-page="/Index">Back to List</a>
+</div>

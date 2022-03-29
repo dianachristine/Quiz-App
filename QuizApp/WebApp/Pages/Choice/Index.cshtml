@@ -1,0 +1,53 @@
+@page
+@model WebApp.Pages_Choice.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.Question.QuestionItself</h1>
+
+<p>
+    <a asp-page="Create" asp-route-id="@Model.Question.QuestionId">Create New Choice</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Choice[0].ChoiceItself)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Choice[0].IsCorrectChoice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Choice[0].NumberOfAnswers)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Choice) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChoiceItself)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCorrectChoice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfAnswers)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ChoiceId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ChoiceId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ChoiceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<br/>
+<div>
+    <a asp-page="/Question/Index" asp-route-id="@Model.Question.QuizId">Back to List</a>
+</div>

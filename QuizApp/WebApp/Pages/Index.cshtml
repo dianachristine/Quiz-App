@@ -1,0 +1,103 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Quizzes</h1>
+</div>
+
+<p>
+    <a asp-page="/Quiz/Create">Create New</a>
+</p>
+
+<div class="row">
+    <div class="col-9">
+        <form class="form-inline" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" id="searchName" name="searchName" placeholder="Search" value="@Model.SearchName">
+            </div>
+        
+            <div class="form-group">
+                <input type="submit" value="Search" name="action" class="btn btn-primary"/>
+                @if (Model.SearchName != null)
+                {
+                    <input type="submit" value="Clear" name="action" class="btn btn-warning"/>
+                }
+            </div>
+        </form>
+    </div>
+    <div class="col-1">
+            <form class="form-inline" method="get">
+                <div class="form-group">
+                    <input type="submit" value="All" name="action"  class="btn btn-link"/>
+                </div>
+            </form>
+        </div>
+    <div class="col-1">
+        <form class="form-inline" method="get">
+            <div class="form-group">
+                <input type="submit" value="Quizzes" name="action" class="btn btn-link"/>
+            </div>
+        </form>
+    </div>
+    <div class="col-1">
+        <form class="form-inline" method="get">
+            <div class="form-group">
+                <input type="submit" value="Polls" name="action"  class="btn btn-link"/>
+            </div>
+        </form>
+    </div>
+    
+</div>
+<br/>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Quiz[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quiz[0].Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quiz[0].Type)
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Quiz)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                <a asp-page="/Quiz/Edit" asp-route-id="@item.QuizId">Edit</a> |
+                <a asp-page="/Quiz/Details" asp-route-id="@item.QuizId">Details</a> |
+                <a asp-page="/Quiz/Statistics" asp-route-id="@item.QuizId">Statistics</a> |
+                <a asp-page="/Quiz/Delete" asp-route-id="@item.QuizId">Delete</a>
+            </td>
+            <td>
+                <form method="post" asp-page="/AnswerQuiz/Answer">
+                    <input class="invisible" name="QuizId" value=@item.QuizId>
+                    <button class="btn btn-light" type="submit">Answer</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

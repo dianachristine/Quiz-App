@@ -1,0 +1,24 @@
+﻿@page
+@model WebApp.Pages.AnswerQuiz.Answer
+
+@{
+    ViewData["Title"] = "Answer";
+}
+
+<h1>Answer Quiz</h1>
+
+<form method="post" asp-page="/AnswerQuiz/Answer">
+    <input class="invisible" name="QuizId" value="@Model.Quiz.QuizId">
+    <input class="invisible" name="NumOfAnsweredQuestions" value="@(int.Parse(Model.NumOfAnsweredQuestions ?? "0") + 1)">
+
+    <div>
+        @Model.Quiz.Questions.ToArray()[int.Parse(Model.NumOfAnsweredQuestions ?? "0")].QuestionItself
+    </div>
+    @foreach (var choice in @Model.Quiz.Questions.ToArray()[int.Parse(Model.NumOfAnsweredQuestions ?? "0")].Choices)
+    {
+        <input type="radio" asp-for="UserSelectedChoiceId" value="@choice.ChoiceId" /> @choice.ChoiceItself<br />
+    }
+    <br/>
+    
+    <button class="btn btn-primary" type="submit">Answer</button>
+</form>

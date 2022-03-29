@@ -1,0 +1,43 @@
+@page
+@model WebApp.Pages_Choice.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Choice</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Choice.ChoiceItself)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Choice.ChoiceItself)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Choice.IsCorrectChoice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Choice.IsCorrectChoice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Choice.NumberOfAnswers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Choice.NumberOfAnswers)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Choice.Question)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Choice.Question.QuestionItself)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Choice.ChoiceId">Edit</a> |
+    <a asp-page="./Index" asp-route-id="@Model.Choice.QuestionId">Back to List</a>
+</div>
